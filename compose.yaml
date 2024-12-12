@@ -3,9 +3,12 @@ services:
     build: .
     container_name: git-sync-airflow-dags-and-dbt
     environment:
+      - DAGS_FOLDER=/tmp/airflow/dags
+      - DBT_FOLDER=/tmp/dbt
       - GITSYNC_EXECHOOK_COMMAND=rsync-airflow-dags-and-dbt
       - GITSYNC_LINK=repo
       - GITSYNC_REF=main
       - GITSYNC_REPO=https://github.com/blackbass64/git-sync-airflow-dags-and-dbt
       - GITSYNC_ROOT=/git/team-a
-      - TEAM=a
+      - GITSYNC_VERBOSE=6
+      - TEAM=team-a
