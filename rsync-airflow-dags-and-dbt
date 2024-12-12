@@ -1,0 +1,25 @@
+#!/bin/bash
+
+TEAM=${TEAM}
+
+SOURCE_DAGS="$GITSYNC_ROOT/$GITSYNC_LINK/airflow/dags/"
+DEST_DAGS="$DAGS_FOLDER/$TEAM"
+
+SOURCE_DBT="$GITSYNC_ROOT/$GITSYNC_LINK/dbt/"
+DEST_DBT="$DBT_FOLDER/$TEAM"
+
+if [[ -d "$SOURCE_DAGS" ]]; then
+  echo "Starting rsync for DAGS folder..."
+  rsync -avh --mkpath --delete "$SOURCE_DAGS" "$DEST_DAGS"
+  echo "Rsync for DAGS folder completed successfully."
+else
+  echo "Skipping DAGS sync: Source folder $SOURCE_DAGS does not exist."
+fi
+
+if [[ -d "$SOURCE_DBT" ]]; then
+  echo "Starting rsync for DBT folder..."
+  rsync -avh --mkpath --delete "$SOURCE_DBT" "$DEST_DBT"
+  echo "Rsync for DBT folder completed successfully."
+else
+  echo "Skipping DBT sync: Source folder $SOURCE_DBT does not exist."
+fi
